@@ -43,6 +43,7 @@ module.exports = (req, res, next) => {
   }
   
   function _authError() {
+    res.set('WWW-Authenticate', 'basic');
     next('Invalid User ID/Password');
   }
   

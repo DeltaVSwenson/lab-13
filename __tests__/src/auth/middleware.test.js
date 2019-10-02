@@ -38,7 +38,7 @@ describe('Auth Middleware', () => {
           authorization: 'Basic YWRtaW46Zm9v',
         },
       };
-      let res = {};
+      let res = { set: () => {} };
       let next = jest.fn();
       let middleware = auth;
 
@@ -56,7 +56,7 @@ describe('Auth Middleware', () => {
           authorization: 'Basic YWRtaW46cGFzc3dvcmQ=',
         },
       };
-      let res = {};
+      let res = { set: () => {} };
       let next = jest.fn();
       let middleware = auth;
 
