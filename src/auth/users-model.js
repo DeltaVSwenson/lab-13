@@ -43,6 +43,21 @@ users.statics.authenticateBasic = function(auth) {
     .then( user => user && user.comparePassword(auth.password) )
     .catch(error => {throw error;});
 };
+users.statics.authenticateToken = function(token){
+  try{
+    let tokenData = jwt.decode(token);
+    let user = this.findById(tokenData.id);
+
+    if(user && jwt.verify(token, user.generateSecret())){
+      return user;
+    }
+    return null
+  }
+  catch (error) {
+    console.warn('token error', error);
+    return null
+  }
+}
 
 users.methods.comparePassword = function(password) {
   return bcrypt.compare( password, this.password )
@@ -58,5 +73,7 @@ users.methods.generateToken = function() {
 
   return jwt.sign(token, process.env.SECRET);
 };
-
+users.methods.generateSecret = function(){
+  return (process.env.SECRET || 'hehe')
+}
 module.exports = mongoose.model('users', users);

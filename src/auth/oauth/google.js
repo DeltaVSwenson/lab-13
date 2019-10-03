@@ -3,6 +3,8 @@
 const superagent = require('superagent');
 const Users = require('../users-model.js');
 
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
+
 const authorize = (req) => {
 
   let code = req.query.code;
